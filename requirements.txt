@@ -3,7 +3,7 @@ autopep8==1.4.4
 bcrypt==3.1.7
 beautifulsoup4==4.8.1
 cffi==1.13.2
-Django==2.2.7
+Django==2.2.8
 django-betterforms==1.2
 django-bootstrap3==11.1.0
 django-bootstrap4==1.0.1

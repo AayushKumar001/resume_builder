@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^create_review/',include('review.urls',namespace='review')),
     url(r'^thanks/',views.ThanksPageView.as_view(),name='thanks'),
     url(r'^test/',views.TestView.as_view(),name='test'),
+    url(r'^reports/',views.ReportList.as_view(),name='report'),
     path('admin/', admin.site.urls),
 ]
 

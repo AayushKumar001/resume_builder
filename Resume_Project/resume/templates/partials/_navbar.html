@@ -21,12 +21,12 @@
                 <li >
                     <a class="navbar-link login" href="#" style="color: white;">Welcome {{user.username}}</a>
                 </li> 
-                <li {% if 'address' in request.path %}
+                <li {% if 'report' in request.path %}
                 class="active"
                 {% else %}
                 class=""
                 {% endif %}>
-                    <a class="navbar-link login" href="{% url 'personal_info:address' %}" style="color: white;">View Report</a>
+                    <a class="navbar-link login" href="{% url 'report' %}" style="color: white;">View Report</a>
                 </li>                     
 
                 <li {% if 'logout' in request.path %}

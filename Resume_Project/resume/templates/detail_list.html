@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for detail in details %}
+        <p>{{detail.first_name}}</p>
+        <p>{{detail.last_name}}</p>
+        <p>{{detail.school_name}}</p>
+        <p>{{detail.job_title}}</p>
+    {% endfor %}
+{% endblock %}

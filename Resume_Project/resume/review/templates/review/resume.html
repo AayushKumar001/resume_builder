@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    {% load staticfiles i18n %}
+    {% load extract_year %}
+    {% load pdf_filters %}
+    {% load convert_int %}
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div class="grid-container outline">
+            <div class="row">
+                {% for info in contact %}           
+                    <div class="col-3">
+                        <h3 class="text-uppercase"><strong>{{info.first_name}} {{info.last_name}}</strong></h3>
+                        <h4 >Software Developer</h4>
+                        <p >
+                            <span class="glyphicon glyphicon-send colorful"></span>
+                            {{info.address}},{{info.city}},{{info.state}}
+                        </p>
+                        <p >
+                            <span class="glyphicon glyphicon-envelope colorful"></span>
+                            {{info.email}}
+                        </p>
+                        <p >
+                            <span class="glyphicon glyphicon-earphone colorful" ></span>
+                            {{info.phone}}
+                        </p>
+                    </div>    
+                {% endfor %}
+            </div>
+
+            <hr>
+
+            <div class="row">
+                
+                <div class="col-4 ">
+                    <h4 ><span class="glyphicon glyphicon-edit colorful"></span> &nbsp;Professional Summary</h4>
+                    {% if summary %}
+                        {% for details in summary %}
+                            <p>{{details.summary}}</p>
+                        {% endfor %}
+                    {% endif %}     
+                             
+                </div>
+
+                <div class="col-2">
+                    <h4 ><span class="glyphicon glyphicon-folder-close colorful"></span> &nbsp;Employment History</h4>
+                    {% if experience %}
+                        <ul style="list-style-type: none;">
+                            {% for detail in experience %}
+                                <li>{{detail.job_title}} at {{detail.employer}},{{detail.city}},{{detail.state}}</li>
+                                {% if detail.currently_work %}
+                                    <li style="color: #f8ce0b;">{{detail.start_date}} - Present</li>
+                                {% else %}
+                                    <li style="color: #f8ce0b;">{{detail.start_date}} - {{detail.end_date}}</li>
+                                {% endif %}
+                                
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="row">
+
+                <div class="col-4 ">
+                    <h4 ><span class="glyphicon glyphicon-education colorful"></span> &nbsp;Education</h4>
+                    {% if education %}
+                        <ul style="list-style-type:none">
+                            {% for detail in education %}
+                                <li>{{detail.school_name}},{{detail.city}},{{detail.state}}</li>
+                                <li style="color: #f8ce0b;">{{detail.graduation_date}}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="col-2">
+                    <h4 ><span class="glyphicon glyphicon-fire colorful"></span> &nbsp;Skill</h4>
+                    {% if t_skill %}
+                        <ul style="list-style-type: none;">
+                            {% for detail in t_skill %}
+                                <li>
+                                    <p>{{detail.tech_skill}}</p>
+                                    
+                                    
+                                    <div class="star-rating">
+                                        {% for rating in detail.rating|times %}
+                                            <span class="glyphicon glyphicon-star colorful "></span>
+                                        {% endfor %}
+                                    </div>       
+                                    
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-4 ">
+                    <h4 ><span class="glyphicon glyphicon-gift colorful"></span> &nbsp;Certification</h4>
+                        {% if certification %}
+                            <ul style="list-style-type: none;">
+                                {% for detail in certification %}
+                                    <li>{{detail.certification}},{{detail.certification_body}}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                </div>
+                <div class="col-2">
+                    <h4 ><span class="glyphicon glyphicon-list-alt colorful"></span> &nbsp;Project</h4>
+                    {% if project %}
+                        <ul style="list-style-type: none;">
+                            {% for detail in project %}
+                                <li>{{detail.title}}
+                                    <p>{{detail.link_html}}</p>
+                                </li>
+                            {% endfor %}
+                        </ul>    
+                    {% endif %}
+                </div>
+                
+            </div>
+        </div>
+        <hr>
+    </body>
+
+</html>

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Summary
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% include '_checkboxes.html' %}
+        {% else %}
+        {% endif %}
+    </div>
+    
+    <div class="container">
+        
+        <h2>Tips for your <strong class="text-uppercase">Summary Section</strong></h2>
+        <ul class="list-group list-group-flush">
+                    
+            <li class="list-group-item"><span class="bullets glyphicon glyphicon-tag"></span> &nbsp;&nbsp;Keep your summary short and straight to the point. You can always elaborate during the interview. The optimal length for a professional summary is between 50 and 100 words.</li>
+            <li class="list-group-item"><span class="bullets glyphicon glyphicon-tag"></span> &nbsp;&nbsp;Tailor the summary to the job you are applying for. Show the employer exactly why you’re the best fit for this position.</li>
+            <li class="list-group-item"><span class="bullets glyphicon glyphicon-tag"></span> &nbsp;&nbsp;Be specific about your background, skills and goals.</li>
+            <li class="list-group-item"><span class="bullets glyphicon glyphicon-tag"></span> &nbsp;&nbsp;Remember, the best resume summary should quickly grab recruiters’ attention by shouting out: “Hey, I’m who you are looking for!”</li>
+        </ul>
+         <a href="{% url 'project:list'%}" class="cancel btn ">BACK</a> 
+        <a href="{% url 'summary:create' %}" class="save btn btn-success">NEXT</a>
+        
+    </div>
+    
+{% endblock %}    

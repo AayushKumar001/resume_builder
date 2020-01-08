@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block title %}
+    | Personal Info
+{% endblock %}
+{% block content %}
+
+<h3>Complete your <strong class="text-uppercase">Resume Heading</strong></h3>
+<h4>Employers will use this information to contact you.</h4>
+
+<div class="container">
+    {% if user.is_authenticated %}
+    
+        {% include '_checkboxes.html' %}
+    {% else %}
+    <p></p>
+    {% endif %}
+</div>
+
+<form enctype="multipart/form-data" class="address-form " method="POST" >
+    {% csrf_token %}
+    <div class="col-md-11.5">
+        <div class="form-group row">
+            <div class="col-sm-5">
+                <label for="inputfirstname">{{form.first_name.label_tag}}</label>
+                <p>{{form.first_name}}</p>
+            </div>
+            <div class="col-sm-5">
+                <label for="inputlastname">{{form.last_name.label_tag}}</label>
+                <p>{{form.last_name}}</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-5">
+                <label for="inputaddress">{{form.address.label_tag}}</label>
+                <p>{{form.address}}</p>
+            </div>
+            <div class="col-sm-5">
+                <label for="inputcity">{{form.city.label_tag}}</label>
+                <p>{{form.city}}</p>
+            </div>
+        </div>  
+        <div class="form-group row">
+            <div class="col-sm-5">
+                <label for="inputstate">{{form.state.label_tag}}</label>
+                <p>{{form.state}}</p>
+            </div>
+            <div class="col-sm-5">
+                <label for="inputzipcode">{{form.zip_code.label_tag}}</label>
+                <p>{{form.zip_code}}</p>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-5">
+                <label for="inputcountry">{{form.country.label_tag}}</label>
+                <p>{{form.country}}</p>
+            </div>
+            <div class="col-sm-5">
+                <label for="inputemail">{{form.email.label_tag}}</label>
+                <p>{{form.email}}</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-5">
+                <label for="inputphone">{{form.phone.label_tag}}</label>
+                <p>{{form.phone}}</p>
+            </div>
+            <div class="col-sm-5">
+                <label for="inputpicture">{{form.profile_pic.label_tag}}</label>
+                <p>{{form.profile_pic}}</p>
+            </div>
+        </div>
+        <input type="submit"  class="cancel btn btn-secondary" value="Cancel" name="cancel" />
+        <input type="submit" class="save btn btn-success" value="SAVE & NEXT" name="save"/>
+    </div>
+    </form>
+
+
+{% endblock %}

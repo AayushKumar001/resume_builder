@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load extract_year %}
+{% block title %}
+    | Review
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% include '_checkboxes.html' %}
+        {% else %}
+        {% endif %}
+    </div>
+
+    <div class="container-fluid">
+        <div class="col-md-12">
+            
+            {% for info in contact %}
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <img src="{{MEDIA_URL}}{{ info.profile_pic }}" alt="" class="img-circle img-responsive center-block user-image" >
+                </div>
+                <div class="col-md-6">
+                    <h2>{{info.first_name}} {{info.last_name}}</h2>
+                    <h4 >&nbsp;&nbsp;&nbsp;Software Developer</h4>
+                    <p class="phone-number">
+                        <span class="glyphicon glyphicon-earphone"></span>
+                        &nbsp;{{info.phone}}
+                    </p>
+                    <p class="phone-number">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        &nbsp;{{info.email}}
+                    </p>
+                    <p class="phone-number">
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                        &nbsp;{{info.city}},{{info.state}}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="form-group row">
+                <hr>
+                <div class="col-md-5 ">
+                    
+                    <h3 class="text-center"><span class="glyphicon glyphicon-book"></span> &nbsp;Education</h3>
+                    {% if education %}
+                        {% for detail in education %}
+                            <li>&emsp;{{detail.school_name}},{{detail.city}},{{detail.state}}</li>
+                        {% endfor %}
+                    {% endif %}
+                    <hr>
+
+                    <h3 class="text-center"><span class="glyphicon glyphicon-list-alt"></span> &nbsp;Project</h3>
+                    {% if project %}
+                        {% for detail in project %}
+                            <li>&emsp;{{detail.title}}
+                                <p>&emsp;{{detail.link_html}}</p>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                    <hr>
+
+                    <h3 class="text-center"><span class="glyphicon glyphicon-gift"></span> &nbsp;Certification</h3>
+                    {% if certification %}
+                        {% for detail in certification %}
+                            <li>&emsp;{{detail.certification}},&nbsp;{{detail.certification_body}}
+                                
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                    <hr>
+
+                </div>
+
+                
+                <div class="col-md-2">
+                    <div class="vertical"></div>
+                </div>
+                <div class="col-md-5">
+                    <h3 class="text-center"><span class="glyphicon glyphicon-folder-close"></span> &nbsp;Employment History</h3>
+                    {% if experience %}
+                        <ul >
+                            {% for detail in experience %}
+                                <li>&emsp;{{detail.job_title}} at {{detail.employer}},{{detail.city}},{{detail.state}} {{detail.start_date|get_year}} - {{detail.end_date|get_year}}
+                                    
+                                </li>
+                                
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <hr>
+
+                    <h3 class="text-center"><span class="glyphicon glyphicon-fire"></span> &nbsp;Skill</h3>
+                    {% if t_skill %}
+                        <ul >
+                            {% for detail in t_skill %}
+                                <li>
+                                    &emsp;{{detail.tech_skill}}
+                                    <input type="hidden" value="{{detail.rating}}" id = "rating_{{detail.id}}" class="skill_rating">
+                                    <div class="stars-outer">
+                                        <div class="stars-inner" id="star_{{detail.id}}"></div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">    
+                        <a class="btn btn-secondary cancel" href="{% url 'summary:create' %}" id="back">BACK</a>
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <a class="btn btn-success save-button" href="{% url 'review:generate' %}" id="save-next">GENERATE PDF</a>
+                    </div>
+                    <!-- <center class='{{ pdfcrowd_remove }}'>
+                        <a class="btn btn-success" href="{% url 'review:index' %}" id="save-next">Create PDF</a>
+                    </center> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var dict = {};
+        const starTotal = 5;
+        
+        window.onloadeddata = onPageLoad();
+        function onPageLoad(){
+            $.each($("input[type='hidden'][class='skill_rating']"), function(){
+            dict[$(this).attr('id')] = $(this).val();          
+        });
+        for(const rating in dict) {  
+                var id = rating.replace('rating','star');
+                var x =document.getElementById(id);
+                const starPercentage = (dict[rating] / starTotal) * 100;
+                const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+                x.style.width = starPercentageRounded;                
+                //document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded; 
+                
+            }
+        }
+    </script>
+
+{% endblock %}        

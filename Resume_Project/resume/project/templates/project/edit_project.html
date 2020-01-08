@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Project - {{project.title}}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% include '_checkboxes.html' %}
+        {% else %}
+        {% endif %}
+    </div>
+
+    <h2 class="text-uppercase"><strong>Project</strong></h2>
+
+
+    <ul class="breadcrumb">
+        <li >
+            <a href="{% url 'index' %}">Resume</a>
+        </li>
+        <li >
+            <a href="#">Project</a>
+        </li>
+        <li >
+            <a href="#">{{ project.title}}</a>
+        </li>
+        <li >Edit project</li>
+    </ul>
+
+    <div class="jumbotron">
+        <div class="container">
+            <form action="" method="post">
+                {% csrf_token %}
+                
+                <div class="col-md-12">
+                    <br>    
+                    <div class="form-group row">
+                                
+                        <div class="col-md-5">
+                            {{ form.description.errors}}
+                            <label for="inputdescription">
+                                <span>{{form.description.label}}</span>
+                            </label>
+                            <p>{{form.description}}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-5">
+                            {{ form.technology.errors}}
+                            <label for="inputtechnology">
+                                <span>{{form.technology.label}}</span>
+                            </label>
+                            <p>{{form.technology}}</p>
+                        </div>
+
+                        <div class="col-md-5">
+                            {{ form.link_html.errors}}
+                            <label for="inputlink">
+                                <span>{{form.link_html.label}}</span>
+                            </label>
+                            <p>{{form.link_html}}</p>
+                        </div>
+                    </div>   
+                    <br>
+                    <br>    
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="submit"  class="btn btn-secondary cancel" value="CANCEL" name="cancel" />
+                            <input type="submit" class="btn btn-success save-button" value="UPDATE" name="save"/>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>            
+
+{% endblock %}    

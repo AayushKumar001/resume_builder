@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    {% load staticfiles %}
+    {% load extract_year %}
+    {% load pdf_filters %}
+    
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+        <link href="http://www.w3.org/TR/css3-values/#calc-notation" rel="help">
+        <link href="reference/calc-background-linear-gradient-1-ref.htm" rel="match">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{% static 'css/master/resume_index.css' %}">
+        <link rel="stylesheet" href="{% static 'css/master/style_pdf.css' %}">
+        
+    </head>
+    <body>
+        <div class="grid-container outline">
+            <div class="row">
+                {% for info in contact %}           
+                    <div class="col-3">
+                        <img src="{{MEDIA_URL}}{{ info.profile_pic }}" alt="" class="img-circle img-responsive center-block user-image" >
+                    </div>
+                    <div class="col-3">
+                        <h2 class="text-uppercase">{{info.first_name}} {{info.last_name}}</h2>
+                        <h4 >Software Developer</h4>
+                        <p >
+                            <span class="glyphicon glyphicon-earphone colorful" ></span>
+                            {{info.phone}}
+                        </p>
+                        <p >
+                            <span class="glyphicon glyphicon-envelope colorful"></span>
+                            {{info.email}}
+                        </p>
+                        <p >
+                            <span class="glyphicon glyphicon-map-marker colorful"></span>
+                            {{info.city}},{{info.state}}
+                        </p>
+                    </div>    
+                {% endfor %}
+            </div>
+
+            <hr>
+
+            <div class="row">
+                
+                <div class="col-4">
+                    <h4 ><span class="glyphicon glyphicon-folder-close colorful"></span> &nbsp;Professional Summary</h4>
+                    {% if summary %}
+                        {% for details in summary %}
+                            <p>{{details.summary}}</p>
+                        {% endfor %}
+                    {% endif %}                        
+                </div>
+
+                <div class="col-2">
+                    <h4 ><span class="glyphicon glyphicon-folder-close colorful"></span> &nbsp;Employment History</h4>
+                    {% if experience %}
+                        <ul style="list-style-type: none;">
+                            {% for detail in experience %}
+                                <li>{{detail.job_title}} at {{detail.employer}},{{detail.city}},{{detail.state}} {{detail.start_date|get_year}} - {{detail.end_date|get_year}}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="row">
+
+                <div class="col-4">
+                    <h4 ><span class="glyphicon glyphicon-list-alt colorful"></span> &nbsp;Project</h4>
+                    {% if project %}
+                        <ul style="list-style-type: none;">
+                            {% for detail in project %}
+                                <li>{{detail.title}}
+                                    <p>{{detail.link_html}}</p>
+                                </li>
+                            {% endfor %}
+                        </ul>    
+                    {% endif %}
+                </div>
+
+                <div class="col-2">
+                    <h4 ><span class="glyphicon glyphicon-fire colorful"></span> &nbsp;Skill</h4>
+                    {% if t_skill %}
+                        <ul style="list-style-type: none;">
+                            {% for detail in t_skill %}
+                                <li>
+                                    {{detail.tech_skill}}
+                                    <input type="hidden" value="{{detail.rating}}" id = "rating_{{detail.id}}" class="skill_rating">
+                                    
+                                        <div class="Stars" style="--rating: 2.3;"></div>
+                                    
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-4">
+                    <h4 ><span class="glyphicon glyphicon-gift colorful"></span> &nbsp;Certification</h4>
+                        {% if certification %}
+                            <ul style="list-style-type: none;">
+                                {% for detail in certification %}
+                                    <li>{{detail.certification}},{{detail.certification_body}}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

@@ -1,0 +1,76 @@
+<!--Navbar-->
+{% load staticfiles %}
+<nav class="navbar navbar-default navbar-static-top ">
+    <div class="container">
+        <ul class="nav navbar-nav ">
+            <li >
+                <a class="navbar-brand site-title" href="{% url 'index' %}" style="color: white;">Resume Builder</a>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li {% if 'about' in request.path %}
+            class="active"
+            {% else %}
+            class=""
+            {% endif %}>
+                <a class="navbar-link about" href="{% url 'about' %}" style="color: white;" >About</a>
+            </li>
+            {% if user.is_authenticated %}
+                {% if user.username == 'Admin' %}
+                <li >
+                    <a class="navbar-link login" href="#" style="color: white;">Welcome {{user.username}}</a>
+                </li> 
+                <li {% if 'address' in request.path %}
+                class="active"
+                {% else %}
+                class=""
+                {% endif %}>
+                    <a class="navbar-link login" href="{% url 'personal_info:address' %}" style="color: white;">View Report</a>
+                </li>                     
+
+                <li {% if 'logout' in request.path %}
+            class="active"
+            {% else %}
+            class=""
+            {% endif %}>
+                <a class="navbar-link login" href="{% url 'logout' %}" style="color: white;">Logout</a>
+            </li>
+                {% else %}
+            <li >
+                <a class="navbar-link login" href="#" style="color: white;">Welcome {{user.username}}</a>
+            </li>    
+            <li {% if 'create' in request.path %}
+            class="active"
+            {% else %}
+            class=""
+            {% endif %}>
+                <a class="navbar-link login" href="{% url 'personal_info:address' %}" style="color: white;">Create Resume</a>
+            </li>                     
+            <li {% if 'logout' in request.path %}
+            class="active"
+            {% else %}
+            class=""
+            {% endif %}>
+                <a class="navbar-link login" href="{% url 'logout' %}" style="color: white;">Logout</a>
+            </li>
+            {% endif %}
+            {% else %}
+            <li {% if 'login' in request.path %}
+            class="active"
+            {% else %}
+            class=""
+            {% endif %}>
+                <a class="navbar-link login" href="{% url 'login' %}" style="color: white;">Login</a>
+            </li>
+            <li {% if 'signup' in request.path %}
+            class="active"
+            {% else %}
+            class=""
+            {% endif %}>
+                <a class="navbar-link sign_up" href="{% url 'accounts:signup' %}" style="color: white;" >Sign Up</a>
+            </li>                                
+            {% endif %}
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Summary - Form
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+        {% if user.is_authenticated %}
+    
+            {% include '_checkboxes.html' %}
+
+            {% else %}
+        <p></p>
+        {% endif %}
+</div>
+
+    <h2><strong class="text-uppercase">Professional Summary</strong></h2>
+    <h5>Write a short Summary telling more about yourself ,your strengths and experience.</h5>
+    <br>
+    <br>
+
+    <div class="jumbotron">
+        <div class="container">
+            <form action="" method="post">
+                {% csrf_token %}
+                
+                <div class="col-md-12">
+                    
+                    <br>    
+                        
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                {{ form.summary.errors}}
+                                <label for="inputkskill">
+                                    <span>
+                                        {{form.summary.label}}
+                                    </span>
+                                </label>
+                                {{form.summary}}
+                            </div>
+                        
+                        
+                            <div class="col-md-6">
+                                {{ form.history.errors }}
+                                <label for="inputkskill">
+                                    <span>
+                                        {{form.history.label}}
+                                    </span>
+                                </label>
+                                {{form.history}}
+                                
+                            </div>
+                        </div>
+                </div>    
+                                
+                <br>
+                <br>    
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">    
+                            <input type="submit"  class="btn btn-secondary cancel" value="BACK" name="cancel" />
+                        </div>
+                        <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="submit" class="btn btn-success save-button" value="SAVE & NEXT" name="save"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+/* $(".history").focus(function() {
+  if (document.getElementById('rich_with_insert_html_object').value === '') {
+    document.getElementById('rich_with_insert_html_object').value += '• ';
+  }
+}); */
+
+$(".history").keyup(function(event) {
+  var keycode = (event.keyCode ? event.keyCode : event.which);
+  if (keycode == '13') {
+    document.getElementById('rich_with_insert_html_object').value += '    Ø ';
+  }
+  var txtval = document.getElementById('rich_with_insert_html_object').value;
+  if (txtval.substr(txtval.length - 1) == '\n') {
+      
+    document.getElementById('rich_with_insert_html_object').value = txtval.substring(0, txtval.length - 1);
+  }
+});
+
+    </script>
+{% endblock %}

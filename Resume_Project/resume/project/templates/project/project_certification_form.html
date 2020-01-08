@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Project - Certifictions
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+        {% if user.is_authenticated %}
+    
+            {% include '_checkboxes.html' %}
+
+            {% else %}
+        <p></p>
+        {% endif %}
+</div>
+
+    <h2><strong class="text-uppercase">Project & Certifications</strong></h2>
+    <h5>Add information about your projects and certifications</h5>
+    <br>
+    <br>
+
+    <div class="jumbotron">
+        <div class="container">
+            <form action="" method="post">
+                {% csrf_token %}
+                
+                <div class="col-md-12">
+                    <h3 class="text-uppercase" >Projects</h3>
+                    <br>    
+                        
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                {{ p_form.title.errors}}
+                                <label for="inputkskill">
+                                    <span>
+                                        {{p_form.title.label}}
+                                    </span>
+                                </label>
+                                {{p_form.title}}
+                            </div>
+                        </div>    
+                        
+                        <div class="form-group row">
+                                
+                                <div class="col-md-5">
+                                    {{ p_form.description.errors}}
+                                    <label for="inputkskill">
+                                        <span>
+                                            {{p_form.description.label}}
+                                        </span>
+                                    </label>
+                                    {{p_form.description}}
+                                </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                                <div class="col-md-5">
+                                    {{ p_form.technology.errors}}
+                                    <label for="inputkskill">
+                                        <span>
+                                            {{p_form.technology.label}}
+                                        </span>
+                                    </label>
+                                    {{p_form.technology}}
+                                </div>
+
+                                <div class="col-md-5">
+                                    {{ p_form.link_html.errors}}
+                                    <label for="inputkskill">
+                                        <span>
+                                            {{p_form.link_html.label}}
+                                        </span>
+                                    </label>
+                                    {{p_form.link_html}}
+                                </div>
+                        </div>    
+                        
+                        
+                        <h3 class="text-uppercase">Certifications</h3>
+                        <br>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                {{ c_form.certification.errors }}
+                                <label for="inputtskill">
+                                    <span>
+                                        {{c_form.certification.label}}
+                                    </span>
+                                </label>
+                                {{c_form.certification}}
+                            </div>        
+                        </div>
+                    
+                    
+                        <div class="form-group row">
+                            
+                            <div class="col-md-5">
+                                {{ c_form.certification_body.errors }}
+                                    <label for="inputtdescription">
+                                        <span>
+                                            {{c_form.certification_body.label}}
+                                        </span>
+                                    </label>
+                                {{c_form.certification_body}}
+                            </div>
+                            
+                            <div class="col-md-5">
+                                {{c_form.year.errors}}
+                                <label for="inputlused">
+                                    <span>
+                                        {{c_form.year.label}}
+                                    </span>
+                                </label>
+                                <p >{{c_form.year}}</p>
+                            </div>                    
+                        </div>
+
+                    
+                    </div>    
+                                
+                <br>
+                <br>    
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">    
+                            <input type="submit"  class="btn btn-secondary cancel" value="BACK" name="back" />
+                        </div>
+                        <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="submit" class="btn btn-success save-button" value="SAVE & NEXT" name="save"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+        
+{% endblock %}

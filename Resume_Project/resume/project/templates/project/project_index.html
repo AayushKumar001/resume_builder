@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Project
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% include '_checkboxes.html' %}
+        {% else %}
+        {% endif %}
+    </div>
+
+    <div class="container">
+        
+        <h2>Tips for your <strong class="text-uppercase">Projects Section</strong></h2>
+        <ul class="list-group list-group-flush">
+                    
+            <li class="list-group-item"><span class="bullets glyphicon glyphicon-tag"></span> &nbsp;&nbsp;Describe your projects briefly.</li>
+            <li class="list-group-item"><span class="bullets glyphicon glyphicon-tag"></span> &nbsp;&nbsp;Keep it simple and short</li>
+            <li class="list-group-item"><span class="bullets glyphicon glyphicon-tag"></span> &nbsp;&nbsp;Use bullet points to list your job responsibilities in short, direct sentences.</li>
+            <li class="list-group-item"><span class="bullets glyphicon glyphicon-tag"></span> &nbsp;&nbsp;When describing your projects, avoid using personal pronouns like “I, ” “me”, "my" etc.</li>
+        </ul>
+         <a href="{% url 'skills:list' %}" class="cancel btn ">BACK</a> 
+        <a href="{% url 'project:create' %}" class="save btn btn-success">NEXT</a>
+        
+    </div>
+
+{% endblock %}    

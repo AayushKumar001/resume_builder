@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Edu
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+            {% if user.is_authenticated %}
+        
+                {% include '_checkboxes.html' %}
+
+            {% else %}
+            <p></p>
+            {% endif %}
+    </div>
+
+    <h2><strong>EDUCATION</strong></h2>
+    <h5>Add information about your educational background</h5>
+    <br>
+    <br>
+
+    <div class="jumbotron">
+        <div class="container">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="col-md-12">
+                    <fieldset id="group-a" class="input-wrapper">
+                         <div class="form-group row">
+                        
+                            <div class="col-sm-5">
+                                {{ form.school_name.errors}}
+                                <label for="inputschoolname">
+                                    <span>
+                                        {{form.school_name.label}}
+                                    </span>
+                                </label>
+                                <p onkeydown="disableField(event,document.getElementById('id_school_name'))">{{form.school_name}}</p>
+                                
+                            </div>
+                            <div class="col-sm-5">
+                                {{ form.city.errors }}
+                                <label for="inputcity">
+                                    <span>
+                                        {{form.city.label}}
+                                    </span>
+                                </label>
+                                {{form.city}}
+                            </div>        
+                        </div>
+                    </fieldset>     
+                    <fieldset id="group-a" class="input-wrapper">
+                    
+                        <div class="form-group row">
+                            <div class="col-sm-5">
+                                {{ form.state.errors }}
+                                <label for="inputstate">
+                                    <span>
+                                        {{form.state.label}}
+                                    </span>
+                                </label>
+                                {{form.state}}
+                            </div>
+                            <div class="col-sm-5">
+                                {{ form.degree.errors }}
+                                <label for="inputdegree">
+                                    <span>
+                                        {{form.degree.label}}
+                                    </span>
+                                </label>
+                                {{form.degree}}
+                            </div>        
+                        </div>
+                    </fieldset>
+                    <fieldset id="group-a" class="input-wrapper">  
+                        <div class="form-group row">
+                            <div class="col-sm-5">
+                                {{ form.specialization.errors }}
+                                <label for="inputspecialization">
+                                    <span>
+                                        {{form.specialization.label}}
+                                    </span>
+                                </label>
+                                {{form.specialization}}
+                            </div>
+                            <div class="col-sm-5">
+                                {{ form.field.errors }}
+                                <label for="inputfield">
+                                    <span>
+                                        {{form.field.label}}
+                                    </span>    
+                                </label>
+                                {{form.field}}
+                            </div>        
+                        </div>
+                    </fieldset>
+                    <fieldset id="group-a" class="input-wrapper">  
+                        <div class="form-group row">
+                            <div class="col-sm-5">
+                                <label for="inputgraddate">
+                                    <span>
+                                        {{form.graduation_date.label}}
+                                    </span>
+                                </label>
+                                <p onkeydown="getDate(event,document.getElementById('id_graduation_date'))">{{form.graduation_date}}</p>
+                            </div>
+                            <div class="col-sm-5">
+                                {{ form.present_check.errors }}
+                                <label for="inputcheck">
+                                        {{form.present_check.label}}
+                                 
+                                </label>
+                                <p>{{form.present_check}}</p>
+                            </div>        
+                        </div>
+                        </fieldset>
+                    </div>    
+                                
+                <br>
+                <br>    
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">    
+                            <input type="submit"  class="btn btn-secondary cancel" value="BACK" name="back" />
+                        </div>
+                        <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="submit" class="btn btn-success save-button" value="SAVE & NEXT" name="save"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+    
+    var check = document.getElementById('id_present_check')
+    check.addEventListener('click',function(){
+    var date = document.getElementById('id_graduation_date')
+    if(this.checked){
+        date.disabled = true
+    }
+    else{
+        date.disabled = false
+    }
+    })
+
+    function getDate(event,id){
+        var x = event.keyCode;
+        var date = id.value;
+        newDate = checkDate(date);
+        if (x == 13 || x == 9){
+            id.value = newDate;
+        }
+    }
+    function checkDate(value){
+        var pos1 = value.indexOf("-");
+        var pos2 = value.lastIndexOf("-");
+        var oldMonth = value.substring(pos1+1,pos2);
+        var newMonth = value.substring(pos1+1,pos1+4);
+        var newDate =  value.replace(oldMonth,newMonth);
+        return newDate;
+    
+    }
+    //to disable the degree specialization and fields attribute in the form
+    function disableField(event,id){
+        var x = event.keyCode;
+        var name = id.value;
+        if (x == 13 || x==9){
+            if (name.match('School')){
+                document.getElementById('id_degree').disabled = true;
+                document.getElementById('id_specialization').disabled = true;
+                document.getElementById('id_field').disabled = true;
+            }    
+        }
+        
+    }
+    
+    
+    
+
+    </script>
+{% endblock %}

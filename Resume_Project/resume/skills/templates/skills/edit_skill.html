@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Skill-Edit
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% include '_checkboxes.html' %}
+        {% else %}
+        {% endif %}
+    </div>
+
+
+    <ul class="breadcrumb">
+        <li >
+            <a href="{% url 'index' %}">Resume</a>
+        </li>
+        <li >
+            <a href="#">Skills</a>
+        </li>
+        <li >
+            <a href="#">{{ t_skill.tech_skill}}</a>
+        </li>
+        <li >Edit the skill</li>
+    </ul>
+
+    <div class="jumbotron">
+        <div class="container">
+            <form action="" method="post">
+                {% csrf_token %}
+                
+                <div class="col-md-12">
+                      
+                        
+                        <br>
+                        
+                        <div class="form-group row">
+                            
+                            <div class="col-md-5">
+                                {{ form.tech_skill_description.errors }}
+                                    <label for="inputtdescription">
+                                        <span>
+                                            {{form.tech_skill_description.label}}
+                                        </span>
+                                    </label>
+                                {{form.tech_skill_description}}
+                            </div>
+                            
+                            <div class="col-md-5">
+                                {{form.version.errors}}
+                                <label for="inputversion">
+                                    <span>
+                                        {{form.version.label}}
+                                    </span>
+                                </label>
+                                {{form.version}}
+                            </div>
+                    
+                        </div>
+
+                        <div class="form-group row">
+                            
+                                <div class="col-md-5">
+                                    {{ form.experience.errors }}
+                                        <label for="inputexp">
+                                            <span>
+                                                {{form.experience.label}}
+                                            </span>
+                                        </label>
+                                    {{form.experience}}
+                                </div>
+                                
+                                <div class="col-md-5">
+                                    {{form.last_used.errors}}
+                                    <label for="inputlused">
+                                        <span>
+                                            {{form.last_used.label}}
+                                        </span>
+                                    </label>
+                                    <p >{{form.last_used}}</p>
+                                </div>
+                        
+                        </div>
+                    
+                    </div>    
+                                
+                <br>
+                <br>    
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">    
+                            <input type="submit"  class="btn btn-secondary cancel" value="BACK" name="back" />
+                        </div>
+                        <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="submit" class="btn btn-success save-button" value="SAVE & NEXT" name="save"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}    

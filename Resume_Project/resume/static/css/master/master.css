@@ -1,0 +1,157 @@
+/*    font-family: 'Crimson Text', serif;*/
+body{
+    margin-bottom: 10mm;
+}
+.site-title{
+ font-size: 2em;
+ font-family: 'Indie Flower', cursive; 
+ font-weight: bolder; 
+ 
+}
+.navbar-default{
+    background-color:#30caa0;
+}
+.about,.sign_up,.login{
+    font-style: normal;
+    font-size: 20px;
+    font-weight:bolder;
+    
+}
+.checkbox .checkbox-inline{
+    text-transform: uppercase;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+}
+hr{
+    height: 2px;
+
+}
+.vertical{
+    border-left: 1px solid #eee;
+    height: 100%;
+    position: absolute;
+    left: 50%;    
+}
+.save{
+    float: right;
+    margin-right: 0px;
+}
+.cancel{
+    float: left;
+    background-color: gray;
+    color: white;
+
+}
+.bullets{
+    color: #7c4dff;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+.textinputclass{
+    width: 450px;
+    height: 45px;
+    font-size: medium;
+    
+}
+.last-used{
+    font-style: normal;
+    font-size: medium;
+}
+.textinputclass1{
+    width: 400px;
+    height: 40px;
+    font-size: medium;
+}
+.description{
+    font-weight: 300;
+    
+}
+.shadow-textarea textarea.form-control{
+    padding-left: 0.8rem;
+    height: 80px;
+}
+.btn-primary-outline{
+    background-color:transparent;
+    /* border-color: #7c4dff; */
+    border-color:#30caa0;
+    color: black;
+}
+.save-button{
+    float: right;
+}
+.add-button{
+    text-align: center; 
+    position: relative;  
+    margin-left: 15px;
+}
+.text-edit{
+    position: relative;
+    margin-top: -45px;
+    float:right;
+    padding-right: 20px;
+}
+.text-remove{
+    position: relative;
+    margin-top: -45px;
+    float: right;
+    padding-right: 0px;
+}
+.educational-form,.experience-form,.skill-form,.pr-form {
+    display: none;
+    visibility: hidden;
+}
+#exp,#edu,#ski{
+    margin-top: 10px;
+}
+#main-footer{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 30px;
+    font-size: 12px;
+}
+#id_technology,#id_description{
+    height: 100px;
+    width: 400px;
+}
+#id_link_html,#id_certification_body{
+    width: 550px;
+    height: 30px;
+}
+#id_technology,#id_description,#id_link_html,#id_certification_body,#id_year{
+    font-size: medium;
+    border-radius: 10px;    
+}
+#id_year{
+    width: 60px;
+    padding: 2px;
+}
+.user-image{
+    width: 200px;
+    height: 200px;
+}
+.stars-outer {
+    display: inline-block;
+    position: relative;
+    font-family: FontAwesome;
+  }
+   
+  .stars-outer::before {
+    content: "\f006 \f006 \f006 \f006 \f006";
+  }
+   
+  .stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+  }
+   
+  .stars-inner::before {
+    content: "\f005 \f005 \f005 \f005 \f005";
+    color: #f8ce0b;
+  } 

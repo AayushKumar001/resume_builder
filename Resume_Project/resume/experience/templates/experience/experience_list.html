@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Exp-Detail
+{% endblock %}
+
+{% block extra_js %}
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+{% endblock %}
+
+{% block content %}
+<section>
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% include '_checkboxes.html' %}
+        {% else %}
+        {% endif %}
+    </div>
+        
+    <h2 class="text-uppercase"><strong>Experience</strong></h2>
+    <p>List your work experience, from the most recent to the oldest.</p>
+    {% if experience_detail %}
+    <div class="panel panel-default">
+            <div class="panel-body">
+                {% for details in experience_detail %}
+                    <p>
+                        <strong>{{details.employer|safe}}</strong>.
+                        {{details.city}}&nbsp;{{details.state}} 
+                    </p>
+                    <p>
+                        {{details.job_title}}, &nbsp;{{details.start_date}}-
+                        {% if details.currently_work == True %}
+                            Present
+                        {% else %}
+                            {{details.end_date}}
+                        {% endif %}
+                        -&nbsp;{{details.description}}
+                        <a id="delete" href="{% url 'experience:delete' pk=details.pk %}" class="edit">
+                            <span class="glyphicon glyphicon-trash text-remove" aria-hidden="true" ></span>
+                        </a>
+
+                        <a id="edit" href="{% url 'experience:exp_edit' pk=details.pk %}" class="edit" >
+                            <span class="glyphicon glyphicon-pencil text-edit" ></span>
+                        </a>
+                    </p>        
+                {% endfor %}
+            </div>
+    </div>
+    {% else %}
+    <h3>No Experience details Found</h3>
+    {% endif %}
+        
+        <div class="row">
+            <div class="col-md-4">
+                <a class="btn btn-secondary cancel" href="{% url 'experience:create' %}" id="cancel1">BACK</a>
+            </div>
+            <div class="col-md-4">
+                <a type="button" class="btn btn-primary-outline" id="add-button">
+                    + ADD ANOTHER EXPERIENCE
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-success save-button" href="{% url 'education:create' %}" id="save-next">SAVE & NEXT</a>
+            </div>
+        </div>
+    
+        
+         
+        
+        <!--Experience Form-->
+        <div class="jumbotron experience-form" id="exp">
+            <div class="container">
+            <form class="" method="POST" >
+                {% csrf_token %}
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            {{form.employer.errors}}
+                            <label for="inputemployer">{{form.employer.label_tag}}</label>
+                            <p>{{form.employer}}</p>
+                        </div>
+                        <div class="col-sm-5">
+                            {{form.job_title.errors}}
+                            <label for="inputjobtitle">{{form.job_title.label_tag}}</label>
+                            <p>{{form.job_title}}</p>
+                        </div>
+                    </div>
+                
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            {{form.city.errors}}
+                            <label for="inputcity">{{form.city.label_tag}}</label>
+                            <p>{{form.city}}</p>
+                        </div>
+                        <div class="col-sm-5">
+                            {{form.state.errors}}
+                            <label for="inputstate">{{form.state.label_tag}}</label>
+                            <p>{{form.state}}</p>
+                        </div>
+                    </div>
+                
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            {{form.start_date.errors}}
+                            <label for="inputstartdate">{{form.start_date.label_tag}}</label>
+                            <p onkeydown="getDate(event,document.getElementById('id_start_date'))">{{form.start_date}}</p>
+                        </div>
+                        <div class="col-sm-5">
+                            {{form.end_date.errors}}
+                            <label for="inputenddate">{{form.end_date.label_tag}}</label>
+                            <p onkeydown="getDate(event,document.getElementById('id_end_date'))">{{form.end_date}}</p>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <div class="text-center">
+                                {{form.currently_work}}
+                                <label for="inputcheck" >{{form.currently_work.label}}</label>
+                            </div>    
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            {{form.description.errors}}
+                            <label for="inputdescription">{{form.description.label_tag}}</label>
+                            <p>{{form.description}}</p>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="submit"  class="btn btn-secondary cancel" value="CANCEL" name="cancel" id="cancelbutton"/>
+                            <input type="submit" class="btn btn-success save-button" value="SAVE & NEXT" name="save"/>
+                        </div>
+                    </div>
+    
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script type="text/javascript">
+        
+    var del = document.getElementById('delete')
+    var edit = document.getElementById('edit')
+    var addbutton = document.getElementById('add-button')
+    var save = document.getElementById('save-next')
+    var cancel = document.getElementById('cancel1')
+    var cancelbutton = document.getElementById('cancelbutton');
+    addbutton.addEventListener('click',function(){
+        var x = document.getElementById('exp')
+        x.style.display = "block"
+        x.style.visibility = "visible"
+        save.style.visibility = "hidden"
+        cancel1.style.visibility = "hidden"
+        this.style.visibility = "hidden"
+                
+    })
+
+    cancelbutton.addEventListener('click',function(){
+        var x = document.getElementById('exp')
+        x.style.display = "None"
+        x.style.visibility = "hidden"
+        save.style.visibility = "visible"
+        cancel1.style.visibility = "visible"
+        this.style.visibility = "hidden"                
+    })
+
+    var currently_work = document.getElementById('id_currently_work');
+
+    currently_work.addEventListener('click',function(){
+        var end_date = document.getElementById('id_end_date')
+        
+        if(this.checked){
+            end_date.disabled = true
+        }
+        else{
+            end_date.disabled = false
+        }
+    });    
+
+    function getDate(event,id){   
+        var x = event.keyCode;
+        var date = id.value;
+        newDate = checkDate(date);
+        if (x == 13 || x==9){
+            id.value = newDate;
+            //alert('Enter key is pressed: '+newDate);
+        }
+    }
+function checkDate(value){
+    var pos1 = value.indexOf("-");
+    var pos2 = value.lastIndexOf("-");
+    var oldMonth = value.substring(pos1+1,pos2);
+    var newMonth = value.substring(pos1+1,pos1+4);
+    var newDate =  value.replace(oldMonth,newMonth);
+    return newDate;
+}
+    
+</script>
+</section>
+{% endblock %}

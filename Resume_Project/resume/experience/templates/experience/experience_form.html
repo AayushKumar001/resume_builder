@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block title %}
+    | Exp - Form
+{% endblock %}
+{% block content %}
+
+    <div class="container">
+        {% if user.is_authenticated %}
+    
+            {% include '_checkboxes.html' %}
+
+            {% else %}
+        <p></p>
+        {% endif %}
+    </div>
+
+    <h2><strong>EXPERIENCE</strong></h2>
+    <p>List your work experience, from the most recent to the oldest.</p>
+    <br>
+    <br>    
+    
+        <div class="jumbotron">
+            <div class="container">
+            <form class=" " method="POST" >
+                {% csrf_token %}
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            {{form.employer.errors}}
+                            <label for="inputemployer">{{form.employer.label_tag}}</label>
+                            <p>{{form.employer}}</p>
+                        </div>
+                        <div class="col-sm-5">
+                                {{form.job_title.errors}}
+                            <label for="inputjobtitle">{{form.job_title.label_tag}}</label>
+                            <p>{{form.job_title}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                                {{form.city.errors}}
+                            <label for="inputcity">{{form.city.label_tag}}</label>
+                            <p>{{form.city}}</p>
+                        </div>
+                        <div class="col-sm-5">
+                                {{form.state.errors}}
+                            <label for="inputstate">{{form.state.label_tag}}</label>
+                            <p>{{form.state}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                                {{form.start_date.errors}}
+                            <label for="inputstartdate">{{form.start_date.label_tag}}</label>
+                            <p onkeydown="getDate(event,document.getElementById('id_start_date'))">{{form.start_date}}</p>
+                        </div>
+                        <div class="col-sm-5">
+                                {{form.end_date.errors}}
+                            <label for="inputenddate">{{form.end_date.label_tag}}</label>
+                            <p onkeydown="getDate(event,document.getElementById('id_end_date'))">{{form.end_date}}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <div class="text-center">
+                                {{form.currently_work}}
+                                <label for="inputcheck" >{{form.currently_work.label}}</label>
+                            </div>    
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            {{form.description.errors}}
+                            <label for="inputdescription">{{form.description.label_tag}}</label>
+                            <p>{{form.description}}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="submit"  class="btn btn-secondary cancel" value="BACK" name="cancel" />
+                            <input type="submit" class="btn btn-success save-button" value="SAVE & NEXT" name="save"/>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+    </div>
+</div>
+</div>
+
+
+<!--Custom Javascript-->
+<script>
+var currently_work = document.getElementById('id_currently_work');
+
+currently_work.addEventListener('click',function(){
+    var end_date = document.getElementById('id_end_date')
+    
+    if(this.checked){
+        end_date.disabled = true
+    }
+    else{
+        end_date.disabled = false
+    }
+});
+
+function getDate(event,id){
+    var x = event.keyCode;
+    var date = id.value;
+    newDate = checkDate(date);
+    if (x == 13){
+        id.value = newDate;
+//        alert('Enter key is pressed: '+newDate);
+    }
+    else if(x== 9){
+        id.value = newDate;
+//      alert('Tab is pressed: '+newDate);
+    }
+}
+function checkDate(value){
+    var pos1 = value.indexOf("-");
+    var pos2 = value.lastIndexOf("-");
+    var oldMonth = value.substring(pos1+1,pos2);
+    var newMonth = value.substring(pos1+1,pos1+4);
+    var newDate =  value.replace(oldMonth,newMonth);
+    return newDate;
+    //alert('Enter key is pressed: '+newDate);
+}
+</script>
+{% endblock %}        

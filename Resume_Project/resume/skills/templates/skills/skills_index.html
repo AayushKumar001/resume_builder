@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Skills
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% include '_checkboxes.html' %}
+        {% else %}
+        {% endif %}
+
+    <div class="container">
+        
+        <h2>Tips for your <strong class="text-uppercase">Skills Section</strong></h2>
+        <ul class="list-group list-group-flush">
+                    
+            <li class="list-group-item"><span class="bullets glyphicon glyphicon-tag"></span> &nbsp;&nbsp;List your top skills. The more relevant they are to the job you are applying for, the better.</li>
+            <li class="list-group-item"><span class="bullets glyphicon glyphicon-tag"></span> &nbsp;&nbsp;Use one or two keywords, not complete sentences. For example: "Project Management", "Online Marketing", "HTML", "SEO", etc.</li>
+            <li class="list-group-item"><span class="bullets glyphicon glyphicon-tag"></span> &nbsp;&nbsp;Make sure to include all important skills for the job you are applying for, even if you are not proficient on some of them.</li>
+            <li class="list-group-item"><span class="bullets glyphicon glyphicon-tag"></span> &nbsp;&nbsp;Keep it short. Try to showcase no more than 8 skills.</li>
+        </ul>
+        <a href="{% url 'education:list' %}" class="btn btn-secondary cancel">BACK</a> 
+        <a href="{% url 'skills:create' %}" class="btn btn-success save-button">NEXT</a>
+        
+        
+    </div>
+{% endblock%}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="container">
+        {% if user.is_authenticated %}
+        
+            {% include '_checkboxes.html' %}
+    
+            {% else %}
+        <p></p>
+        {% endif %}
+</div>
+<h2 class="text-uppercase"><strong>Experience</strong></h2>
+<p>
+    List your work experience, from the most recent to the oldest.
+</p>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        
+            <p>
+                <strong>{{experience_detail.employer|safe}}</strong>.
+                {{experience_detail.city}}&nbsp;{{experience_detail.state}}
+            </p>
+            <p>
+                {{experience_detail.job_title}}, &nbsp;{{experience_detail.start_date}}-
+                {% if experience_detail.currently_work == True %}
+                    Present
+                {% else %}
+                    {{experience_detail.end_date}}
+                {% endif %}
+                -&nbsp;{{experience_detail.description}}
+                <a href="#">
+                    <span class="glyphicon glyphicon-trash text-remove" aria-hidden="true" ></span>
+                </a>
+                <a href="#">
+                    <span class="glyphicon glyphicon-pencil text-edit" aria-hidden="true" ></span>
+                </a> 
+            </p>      
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <a class="btn btn-secondary cancel" href="{% url 'experience:create' %}">CANCEL</a>
+</div>
+        <div class="col-md-4">
+                <button type="button" class="btn btn-primary-outline formset_row" id="add-more" >+ ADD ANOTHER POSITION</button>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-success save-button" href="{% url 'education:create' %}">SAVE & NEXT</a>
+        </div>
+</div>
+<script type="text/javascript">
+    var addButton = document.getElementById('add-more')
+    addButton.addEventListener('click',function(){
+        alert('Clicked')
+    });
+</script>
+{% endblock %}
+

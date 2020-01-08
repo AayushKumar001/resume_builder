@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Skill-Form
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% include '_checkboxes.html' %}
+        {% else %}
+            <p></p>
+        {% endif %}
+    </div>
+
+    <h2><strong>SKILLS</strong></h2>
+    <h5>Add your skills</h5>
+    <br>
+    <br>
+
+    <div class="jumbotron">
+        <div class="container">
+            <form action="" method="post">
+                {% csrf_token %}
+                
+                <div class="col-md-12">
+                    <h3 class="text-uppercase" >Key Skills</h3>
+                    <br>    
+                        
+                         <div class="form-group row">
+                            <div class="col-md-5">
+                                {{ k_skill.key_skill.errors}}
+                                <label for="inputkskill">
+                                    <span>
+                                        {{k_skill.key_skill.label}}
+                                    </span>
+                                </label>
+                                {{k_skill.key_skill}}
+                            </div>
+                            
+                        </div>
+                        
+                        <h3 class="text-uppercase">Technical Skills</h3>
+                        <br>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                {{ t_skill.tech_skill.errors }}
+                                <label for="inputtskill">
+                                    <span>
+                                        {{t_skill.tech_skill.label}}
+                                    </span>
+                                </label>
+                                {{t_skill.tech_skill}}
+                            </div>        
+                        </div>
+                    
+                    
+                        <div class="form-group row">
+                            
+                            <div class="col-md-5">
+                                {{ t_skill.tech_skill_description.errors }}
+                                    <label for="inputtdescription">
+                                        <span>
+                                            {{t_skill.tech_skill_description.label}}
+                                        </span>
+                                    </label>
+                                {{t_skill.tech_skill_description}}
+                            </div>
+                            
+                            <div class="col-md-5">
+                                {{t_skill.version.errors}}
+                                <label for="inputversion">
+                                    <span>
+                                        {{t_skill.version.label}}
+                                    </span>
+                                </label>
+                                {{t_skill.version}}
+                            </div>
+                    
+                        </div>
+
+                        <div class="form-group row">
+                            
+                                <div class="col-md-5">
+                                    {{ t_skill.experience.errors }}
+                                        <label for="inputexp">
+                                            <span>
+                                                {{t_skill.experience.label}}
+                                            </span>
+                                        </label>
+                                    {{t_skill.experience}}
+                                </div>
+                                
+                                <div class="col-md-5">
+                                    {{t_skill.last_used.errors}}
+                                    <label for="inputlused">
+                                        <span>
+                                            {{t_skill.last_used.label}}
+                                        </span>
+                                    </label>
+                                    <p >{{t_skill.last_used}}</p>
+                                </div>
+                        
+                        </div>
+                    
+                    </div>    
+                                
+                <br>
+                <br>    
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">    
+                            <input type="submit"  class="btn btn-secondary cancel" value="BACK" name="back" />
+                        </div>
+                        <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="submit" class="btn btn-success save-button" value="SAVE & NEXT" name="save"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+        
+{% endblock %}

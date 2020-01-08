@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Edu-Delete
+{% endblock %}
+{% block content %}
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% include '_checkboxes.html' %}
+        {% else %}
+        {% endif %}
+    </div>
+    <p>Are you sure you want to delete the education details for <strong>{{educationinfo.school_name}} ?</strong></p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Yes" class="btn btn-danger">
+        <a href="{% url 'education:list'%}" class="btn btn-dark">No</a> 
+
+    </form>
+
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Exp-Delete
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% include '_checkboxes.html' %}
+        {% else %}
+        {% endif %}
+    </div>
+    <p>Are you sure you want to delete the experience for <strong>{{experience.employer}} ?</strong></p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Yes" class="btn btn-danger">
+        <a href="{% url 'experience:list'%}" class="btn btn-dark">No</a> 
+
+    </form>
+
+
+{% endblock %}

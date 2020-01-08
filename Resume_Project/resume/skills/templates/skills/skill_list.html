@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Skill-List
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% include '_checkboxes.html' %}
+        {% else %}
+        {% endif %}
+    </div>
+
+    <h2>
+        <strong>Skills</strong>
+    </h2>
+    <h5>Add information about your skills.</h5>
+    <br>
+    <br>
+
+    {% if t_skill %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {% for details in t_skill %}
+                    <p>
+                        <strong>
+                            {{details.tech_skill|upper}}
+                        </strong>
+                    </p>    
+                    <hr>
+                    <p style="padding-right: 40px;">I am strong and proficient in {{details.tech_skill_description}},etc.I have worked in {{details.tech_skill}}- {{details.version}}.Also I am having {{details.experience}} year(s) of experience as a working professional.
+                    </p> 
+                    <a href="{% url 'skills:update' pk=details.pk %}">
+                        <i class="glyphicon glyphicon-pencil text-edit" aria-hidden="true" ></i>
+                    </a>
+                    
+                    <a href="{% url 'skills:delete' pk=details.pk %}">
+                            <i class="glyphicon glyphicon-trash text-remove" aria-hidden="true" ></i>
+                    </a>
+                                   
+                    
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <p>No Technical skills added</p>
+    {% endif %}
+    
+    <div class="row">
+        <div class="col-md-4">
+            <a class="btn btn-secondary cancel" href="{% url 'skills:create' %}" id="back">BACK</a>
+        </div>
+        <div class="col-md-4">
+            <a type="button" class="btn btn-primary-outline" id="add-button">
+                + ADD ANOTHER SKILL
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-success save-button" href="{% url 'project:index' %}" id="save-next">NEXT</a>
+        </div>
+    </div>
+
+
+    <div class="jumbotron skill-form" id="ski">
+        <div class="container">
+            <form action="" method="post">
+                {% csrf_token %}
+                
+                <div class="col-md-12">
+                    <h3 class="text-uppercase" ><u>Technical Skills</u></h3>
+                    <br>    
+                
+                    <div class="form-group row">
+                        <div class="col-md-5">
+                            {{ t_form.tech_skill.errors }}
+                            <label for="inputtskill">
+                                <span>
+                                    {{t_form.tech_skill.label}}
+                                </span>
+                            </label>
+                            {{t_form.tech_skill}}
+                        </div>        
+                    </div>
+                
+                
+                    <div class="form-group row">
+                        
+                        <div class="col-md-5">
+                            {{ t_form.tech_skill_description.errors }}
+                                <label for="inputtdescription">
+                                    <span>
+                                        {{t_form.tech_skill_description.label}}
+                                    </span>
+                                </label>
+                            {{t_form.tech_skill_description}}
+                        </div>
+                        
+                        <div class="col-md-5">
+                            {{t_form.version.errors}}
+                            <label for="inputversion">
+                                <span>
+                                    {{t_form.version.label}}
+                                </span>
+                            </label>
+                            {{t_form.version}}
+                        </div>
+                
+                    </div>
+
+                    <div class="form-group row">
+                        
+                            <div class="col-md-5">
+                                {{ t_form.experience.errors }}
+                                    <label for="inputexp">
+                                        <span>
+                                            {{t_form.experience.label}}
+                                        </span>
+                                    </label>
+                                {{t_form.experience}}
+                            </div>
+                            
+                            <div class="col-md-5">
+                                {{t_form.last_used.errors}}
+                                <label for="inputlused">
+                                    <span>
+                                        {{t_form.last_used.label}}
+                                    </span>
+                                </label>
+                                <p >{{t_form.last_used}}</p>
+                            </div>
+                    
+                    </div>
+              
+                </div>    
+                   
+                    <div class="form-group row"></div>
+                    <div class="form-group row"></div>
+                   <div class="form-group row">
+                    
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">    
+                            <input type="submit"  class="btn btn-secondary cancel" value="CANCEL" name="cancel" id="cancel" />
+                        </div>
+                    
+                        <div class="col-sm-4"></div>
+                        
+                        <div class="col-sm-4">
+                            <input type="submit" class="btn btn-success save-button" value="SAVE" name="save"/>
+                        </div>
+
+                    </div>
+                
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    
+    var addbutton = document.getElementById('add-button');
+    var save = document.getElementById('save-next');
+    var back = document.getElementById('back');
+    var cancel = document.getElementById('cancel');
+    addbutton.addEventListener('click',function(){
+        var x = document.getElementById('ski');
+        x.style.display = "block";
+        x.style.visibility = "visible";
+        save.style.visibility = "hidden";
+        back.style.visibility = "hidden";
+        this.style.visibility = "hidden";    
+    })
+
+    cancel.addEventListener('click',function(){
+        var x = document.getElementById('ski');
+        x.style.display = "None";
+        x.style.visibility = "hidden";
+        save.style.visibility = "visible";
+        back.style.visibility = "visible";
+        this.style.visibility = "hidden";    
+        addbutton.style.visibility = "visible";
+    })
+
+    </script>
+{% endblock %}    

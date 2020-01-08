@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Project-List
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% include '_checkboxes.html' %}
+        {% else %}
+        {% endif %}
+    </div>
+
+    <h2>
+        <strong>Projects/Certifications</strong>
+    </h2>
+    <h5>Add information about your projects & certifications</h5>
+    <br>
+    <br>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h3>Projects</h3>
+            {% if projects %}
+                {% for project in projects %}
+                    <p><strong>Title:{{project.title}}</strong></p>    
+                    <p>Description:{{project.description}}</p>
+                    <p>Technology:{{project.technology}}</p>
+                    <p>Github Link: <a style="text-decoration: none;cursor: pointer;" target="_blank">{{project.github_link|safe}}</a></p>
+                    <a href="{% url 'project:edit_project' pk=project.pk %}">
+                        <i class="glyphicon glyphicon-pencil text-edit" aria-hidden="true" ></i>
+                    </a>     
+                    <a href="{% url 'project:delete_project' pk=project.pk %}">
+                        <i class="glyphicon glyphicon-trash text-remove" aria-hidden="true" ></i>
+                    </a>
+                        
+                {% endfor %}
+            {% else %}
+                <p>No projects added</p>
+            {% endif %}
+                        
+            <h3>Certifications</h3>
+            {% if certifications %}        
+                {% for info in certifications %}
+                    
+                    <p><strong>{{info.certification}}</strong></p>    
+                    
+                    <p>Certification Body:{{info.certification_body}}</p>
+                        
+                    <a href="{% url 'project:edit_cert' pk=info.pk %}">
+                        <i class="glyphicon glyphicon-pencil text-edit" aria-hidden="true" ></i>
+                    </a>
+                    <a href="{% url 'project:delete_cert' pk=info.pk %}">
+                        <i class="glyphicon glyphicon-trash text-remove" aria-hidden="true" ></i>
+                    </a>
+                         
+                    
+                {% endfor %}
+            {% else %}
+                <p>No certifications added</p>
+            {% endif %}        
+        </div>
+    </div>
+
+    <div class="row" >
+    
+        <div class="col-md-4">
+            <a class="btn btn-secondary cancel" href="{% url 'project:create' %}" id="back">BACK</a>
+        </div>
+    
+        <div class="col-md-4">
+            <a type="button" class="btn btn-primary-outline" id="add-button">
+                + ADD ANOTHER Project/Certification
+            </a>
+        </div>
+    
+        <div class="col-md-4">
+            <a class="btn btn-success save-button" href="{% url 'summary:index' %}" id="save-next">SAVE & NEXT</a>
+        </div>
+    
+    </div>
+    
+
+    <div class="jumbotron skill-form" id="ski">
+        <div class="container">
+            <form action="" method="post">
+                {% csrf_token %}
+
+                <div class="col-md-12">
+                    <h3 class="text-uppercase" ><u>Projects</u></h3>
+                    <br>    
+                        
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                {{ p_form.title.errors}}
+                                <label for="inputkskill">
+                                    <span>
+                                        {{p_form.title.label}}
+                                    </span>
+                                </label>
+                                {{p_form.title}}
+                            </div>
+                        </div>    
+                        
+                        <div class="form-group row">
+                                
+                                <div class="col-md-5">
+                                    {{ p_form.description.errors}}
+                                    <label for="inputkskill">
+                                        <span>
+                                            {{p_form.description.label}}
+                                        </span>
+                                    </label>
+                                    {{p_form.description}}
+                                </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                                <div class="col-md-5">
+                                    {{ p_form.technology.errors}}
+                                    <label for="inputkskill">
+                                        <span>
+                                            {{p_form.technology.label}}
+                                        </span>
+                                    </label>
+                                    {{p_form.technology}}
+                                </div>
+
+                                <div class="col-md-5">
+                                    {{ p_form.link_html.errors}}
+                                    <label for="inputkskill">
+                                        <span>
+                                            {{p_form.link_html.label}}
+                                        </span>
+                                    </label>
+                                    {{p_form.link_html}}
+                                </div>
+                        </div>    
+                        
+                        
+                        <h3 class="text-uppercase"><u>Certifications</u></h3>
+                        <br>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                {{ c_form.certification.errors }}
+                                <label for="inputtskill">
+                                    <span>
+                                        {{c_form.certification.label}}
+                                    </span>
+                                </label>
+                                {{c_form.certification}}
+                            </div>        
+                        </div>
+                    
+                    
+                        <div class="form-group row">
+                            
+                            <div class="col-md-5">
+                                {{ c_form.certification_body.errors }}
+                                    <label for="inputtdescription">
+                                        <span>
+                                            {{c_form.certification_body.label}}
+                                        </span>
+                                    </label>
+                                {{c_form.certification_body}}
+                            </div>
+                            
+                            <div class="col-md-5">
+                                {{c_form.year.errors}}
+                                <label for="inputlused">
+                                    <span>
+                                        {{c_form.year.label}}
+                                    </span>
+                                </label>
+                                <p >{{c_form.year}}</p>
+                            </div>                    
+                        </div>
+
+                    
+                    </div>
+                   
+                    <div class="form-group row"></div>
+                    <div class="form-group row"></div>
+                    <div class="form-group row">
+
+                        <div class="col-sm-12">
+
+                            <div class="col-sm-4">    
+                                <input type="submit"  class="btn btn-secondary cancel" value="CANCEL" name="cancel" />
+                            </div>
+
+                            <div class="col-sm-4"></div>
+                            
+                            <div class="col-sm-4">
+                                <input type="submit" class="btn btn-success save-button" value="SAVE" name="save"/>
+                            </div>
+                        </div>
+                    </div>
+
+            </form>
+        </div>
+    </div>
+        
+    <script type="text/javascript">
+        
+        var addbutton = document.getElementById('add-button');
+        var save = document.getElementById('save-next');
+        var back= document.getElementById('back');
+        var cancel = document.getElementById('cancel');
+
+        addbutton.addEventListener('click',function(){
+            var x = document.getElementById('ski')
+            x.style.display = "block"
+            x.style.visibility = "visible"
+            save.style.visibility = "hidden"
+            back.style.visibility = "hidden"
+            this.style.visibility = "hidden"
+        })
+
+        cancel.addEventListener('click',function(){
+            var x = document.getElementById('ski')
+            x.style.display = "None"
+            x.style.visibility = "hidden"
+            save.style.visibility = "visible"
+            back.style.visibility = "visible"
+            this.style.visibility = "hidden"
+        })
+
+    </script>
+
+{% endblock %}    

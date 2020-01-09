@@ -164,3 +164,8 @@ MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = 'test'
 LOGOUT_REDIRECT_URL = 'thanks'
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass        
